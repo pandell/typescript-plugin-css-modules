@@ -5,16 +5,17 @@ describe('utils / cssExtensions', () => {
     const isCSS = createIsCSS();
 
     it('should match CSS module extensions', () => {
-      expect(isCSS('./myfile.module.scss')).toBe(true);
-      expect(isCSS('./myfile.module.sass')).toBe(true);
       expect(isCSS('./myfile.module.css')).toBe(true);
+      expect(isCSS('./myfile.module.scss')).toBe(false);
+      expect(isCSS('./myfile.module.sass')).toBe(false);
+      expect(isCSS('./myfile.module.less')).toBe(false);
     });
 
     it('should not match non-CSS module extensions', () => {
-      expect(isCSS('./myfile.module.s')).toBe(false);
+      expect(isCSS('./myfile.css')).toBe(false);
       expect(isCSS('./myfile.scss')).toBe(false);
       expect(isCSS('./myfile.sass')).toBe(false);
-      expect(isCSS('./myfile.css')).toBe(false);
+      expect(isCSS('./myfile.module.csss')).toBe(false);
     });
   });
 

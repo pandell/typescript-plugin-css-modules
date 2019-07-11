@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as ts_module from 'typescript/lib/tsserverlibrary';
+import fs from 'fs';
+import path from 'path';
+import ts_module from 'typescript/lib/tsserverlibrary';
 import { createMatchers } from './helpers/createMatchers';
 import { isCSSFn } from './helpers/cssExtensions';
 import { getDtsSnapshot } from './helpers/cssSnapshots';
@@ -24,7 +24,7 @@ function init({ typescript: ts }: { typescript: typeof ts_module }) {
       ...rest
     ): ts.SourceFile => {
       if (isCSS(fileName)) {
-        scriptSnapshot = getDtsSnapshot(ts, fileName, scriptSnapshot, options);
+        scriptSnapshot = getDtsSnapshot(ts, scriptSnapshot, options);
       }
       const sourceFile = _createLanguageServiceSourceFile(
         fileName,
@@ -45,12 +45,7 @@ function init({ typescript: ts }: { typescript: typeof ts_module }) {
       ...rest
     ): ts.SourceFile => {
       if (isCSS(sourceFile.fileName)) {
-        scriptSnapshot = getDtsSnapshot(
-          ts,
-          sourceFile.fileName,
-          scriptSnapshot,
-          options,
-        );
+        scriptSnapshot = getDtsSnapshot(ts, scriptSnapshot, options);
       }
       sourceFile = _updateLanguageServiceSourceFile(
         sourceFile,
