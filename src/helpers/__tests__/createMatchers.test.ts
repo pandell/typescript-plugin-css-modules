@@ -19,6 +19,8 @@ describe('utils / createMatchers', () => {
     const { isCSS, isRelativeCSS } = createMatchers(options);
 
     expect(isCSS('./myfile.module.css')).toBe(true);
-    expect(isRelativeCSS('../folders/myfile.module.scss')).toBe(true);
+    expect(isRelativeCSS('../folders/myfile.module.scss')).toBe(false);
+    expect(isRelativeCSS('../folders/myfile.module.sass')).toBe(false);
+    expect(isRelativeCSS('../folders/myfile.module.less')).toBe(false);
   });
 });

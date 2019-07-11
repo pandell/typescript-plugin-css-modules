@@ -2,8 +2,6 @@ import { extractICSS, IICSSExports } from 'icss-utils';
 import * as postcss from 'postcss';
 import * as postcssIcssSelectors from 'postcss-icss-selectors';
 import * as ts_module from 'typescript/lib/tsserverlibrary';
-import * as less from 'less';
-import * as sass from 'sass';
 import * as reserved from 'reserved-words';
 import { transformClasses } from './classTransforms';
 import { Options } from '../options';
@@ -20,28 +18,9 @@ const flattenClassNames = (
   currentValue: string[],
 ) => previousValue.concat(currentValue);
 
-export const enum FileTypes {
-  scss = 'scss',
-  less = 'less',
-}
-
-export const getFileType = (fileName: string) =>
-  fileName.endsWith('less') ? FileTypes.less : FileTypes.scss;
-
-export const getClasses = (css: string, fileType: FileTypes) => {
+export const getClasses = (css: string) => {
   try {
-    let transformedCss = '';
-
-    if (fileType === FileTypes.less) {
-      less.render(css, { asyncImport: true } as any, (err, output) => {
-        transformedCss = output.css.toString();
-      });
-    } else {
-      transformedCss = sass.renderSync({ data: css }).css.toString();
-    }
-
-    const processedCss = processor.process(transformedCss);
-
+    const processedCss = processor.process(css);
     return extractICSS(processedCss.root).icssExports;
   } catch (e) {
     return {};
@@ -76,13 +55,11 @@ export default classes;
 
 export const getDtsSnapshot = (
   ts: typeof ts_module,
-  fileName: string,
   scriptSnapshot: ts.IScriptSnapshot,
   options: Options,
 ) => {
   const css = scriptSnapshot.getText(0, scriptSnapshot.getLength());
-  const fileType = getFileType(fileName);
-  const classes = getClasses(css, fileType);
+  const classes = getClasses(css);
   const dts = createExports(classes, options);
   return ts.ScriptSnapshot.fromString(dts);
 };

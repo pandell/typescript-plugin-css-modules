@@ -24,7 +24,7 @@ function init({ typescript: ts }: { typescript: typeof ts_module }) {
       ...rest
     ): ts.SourceFile => {
       if (isCSS(fileName)) {
-        scriptSnapshot = getDtsSnapshot(ts, fileName, scriptSnapshot, options);
+        scriptSnapshot = getDtsSnapshot(ts, scriptSnapshot, options);
       }
       const sourceFile = _createLanguageServiceSourceFile(
         fileName,
@@ -45,12 +45,7 @@ function init({ typescript: ts }: { typescript: typeof ts_module }) {
       ...rest
     ): ts.SourceFile => {
       if (isCSS(sourceFile.fileName)) {
-        scriptSnapshot = getDtsSnapshot(
-          ts,
-          sourceFile.fileName,
-          scriptSnapshot,
-          options,
-        );
+        scriptSnapshot = getDtsSnapshot(ts, scriptSnapshot, options);
       }
       sourceFile = _updateLanguageServiceSourceFile(
         sourceFile,

@@ -1,27 +1,21 @@
 import { readFileSync } from 'fs';
 import { IICSSExports } from 'icss-utils';
 import { join } from 'path';
-import { createExports, getClasses, getFileType } from '../cssSnapshots';
+import { createExports, getClasses } from '../cssSnapshots';
+import { Options } from '../../options';
 
-const testFileNames = [
-  'test.module.css',
-  'test.module.less',
-  'test.module.scss',
-  'empty.module.less',
-  'empty.module.scss',
-];
+const testFileNames = ['test.module.css', 'empty.module.css'];
 
 describe('utils / cssSnapshots', () => {
   testFileNames.forEach((fileName) => {
     let classes: IICSSExports;
-    const fileType = getFileType(fileName);
     const testFile = readFileSync(
       join(__dirname, 'fixtures', fileName),
       'utf8',
     );
 
     beforeAll(() => {
-      classes = getClasses(testFile, fileType);
+      classes = getClasses(testFile);
     });
 
     describe(`with file '${fileName}'`, () => {
@@ -32,10 +26,13 @@ describe('utils / cssSnapshots', () => {
       });
 
       describe('createExports', () => {
-        it('should create an exports file', () => {
-          const exports = createExports(classes, {});
-          expect(exports).toMatchSnapshot();
-        });
+        it.each<Options>([{}, { camelCase: true }])(
+          'should create an exports file (with options %p)',
+          (options) => {
+            const exports = createExports(classes, options);
+            expect(exports).toMatchSnapshot();
+          },
+        );
       });
     });
   });

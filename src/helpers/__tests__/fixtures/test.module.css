@@ -11,6 +11,7 @@
 }
 
 .class_d {
+  @mixin myMixin;
   color: rebeccapurple;
 }
 
