@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as ts_module from 'typescript/lib/tsserverlibrary';
+import fs from 'fs';
+import path from 'path';
+import ts_module from 'typescript/lib/tsserverlibrary';
 import { createMatchers } from './helpers/createMatchers';
 import { isCSSFn } from './helpers/cssExtensions';
 import { getDtsSnapshot } from './helpers/cssSnapshots';

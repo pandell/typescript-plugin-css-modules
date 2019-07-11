@@ -1,8 +1,8 @@
 import { extractICSS, IICSSExports } from 'icss-utils';
-import * as postcss from 'postcss';
-import * as postcssIcssSelectors from 'postcss-icss-selectors';
-import * as ts_module from 'typescript/lib/tsserverlibrary';
-import * as reserved from 'reserved-words';
+import postcss from 'postcss';
+import postcssIcssSelectors from 'postcss-icss-selectors';
+import ts_module from 'typescript/lib/tsserverlibrary';
+import reserved from 'reserved-words';
 import { transformClasses } from './classTransforms';
 import { Options } from '../options';
 
