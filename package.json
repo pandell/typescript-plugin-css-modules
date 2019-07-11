@@ -51,14 +51,14 @@
   },
   "dependencies": {
     "icss-utils": "^4.1.0",
-    "lodash": "^4.17.11",
+    "lodash.camelcase": "^4.3.0",
     "postcss": "^7.0.16",
     "postcss-icss-selectors": "^2.0.3",
     "reserved-words": "^0.1.2"
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
-    "@types/lodash": "^4.14.132",
+    "@types/lodash.camelcase": "^4.3.3",
     "@types/node": "^10.0.0",
     "husky": "^2.3.0",
     "jest": "^24.8.0",
